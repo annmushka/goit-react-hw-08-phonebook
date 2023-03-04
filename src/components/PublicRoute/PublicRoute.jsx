@@ -4,5 +4,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 export const PublicRoute = () => {
   const token = useSelector(state => state.user.token);
-  return token ? <Navigate to="/register" /> : <Outlet />;
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  return token && isLoggedIn ? <Navigate to="/contacts" /> : <Outlet />;
 };

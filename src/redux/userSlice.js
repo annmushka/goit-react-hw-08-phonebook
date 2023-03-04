@@ -19,7 +19,7 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.token = action.payload.token;
-        state.email = action.payload.user.email;
+        state.email = action.payload.email;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -42,12 +42,13 @@ const userSlice = createSlice({
       //---------------------- current-------------------------
       .addCase(refreshUser.pending, (state, action) => {
         state.isLoading = true;
-        state.email = action.payload.user.email;
+        // state.email = action.payload.user.email;
         state.error = null;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
+        state.email = action.payload.data.email;
       })
       .addCase(refreshUser.rejected, (state, action) => {
         state.isLoading = false;

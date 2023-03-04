@@ -10,8 +10,6 @@ import {
 } from 'services/api';
 import { register } from 'services/api';
 
-// const { createAsyncThunk } = require('@reduxjs/toolkit');
-
 export const registerUser = createAsyncThunk(
   'user/userRegister',
   async (data, thunkAPI) => {
@@ -30,8 +28,8 @@ export const loginUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await login(data);
-      token.set(response.token, 'Bearer');
-      return response;
+      token.set(response.data.token, 'Bearer');
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

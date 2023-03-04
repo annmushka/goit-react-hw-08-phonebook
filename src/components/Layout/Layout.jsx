@@ -8,6 +8,7 @@ export const Layout = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   const user = useSelector(state => state.user.user);
+  // const userEmail = useSelector(state => state.user.email);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -42,7 +43,7 @@ export const Layout = () => {
       </header>
 
       <main>
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
       </main>
