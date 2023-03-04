@@ -1,5 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchContact, addContact, deleteContact, login } from 'services/api';
+import {
+  fetchContact,
+  addContact,
+  deleteContact,
+  login,
+  getUserData,
+  logout,
+  token,
+} from 'services/api';
 import { register } from 'services/api';
 
 // const { createAsyncThunk } = require('@reduxjs/toolkit');
@@ -9,9 +17,7 @@ export const registerUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await register(data);
-      thunkAPI.dispatch(
-        loginUser({ email: data.email, password: data.password })
-      );
+      token.set(response.token, 'Bearer');
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -24,6 +30,7 @@ export const loginUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await login(data);
+      token.set(response.token, 'Bearer');
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -31,7 +38,36 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// token.set(response.access_toke);
+export const refreshUser = createAsyncThunk(
+  'user/current',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.user.token;
+
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('No token');
+    }
+    token.set(persistedToken);
+    try {
+      const response = await getUserData();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const logoutUser = createAsyncThunk(
+  'user/logout',
+  async (_, thunkAPI) => {
+    try {
+      const response = await logout();
+      token.unset();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchContactsOper = createAsyncThunk(
   'contacts/fetchAll',

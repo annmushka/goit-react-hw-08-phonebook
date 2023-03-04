@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser, registerUser } from 'redux/operation';
+import css from './AuthPage.module.css';
 
 export function AuthPage({ isLogin }) {
   const dispatch = useDispatch();
@@ -39,29 +40,34 @@ export function AuthPage({ isLogin }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={css.form}>
       {!isLogin && (
         <input
           type="text"
-          placeholder="name"
+          placeholder="Name"
           name="name"
           onChange={handleChange}
+          className={css.input}
         />
       )}
       <input
         type="email"
-        placeholder="email"
+        placeholder="Email"
         name="email"
         onChange={handleChange}
+        className={css.input}
       />
       <input
         type="password"
-        placeholder="password"
+        placeholder="Password"
         name="password"
         onChange={handleChange}
+        className={css.input}
       />
 
-      <button type="submit">{isLogin ? 'Sign in' : 'Sign up'}</button>
+      <button type="submit" className={css.button}>
+        {isLogin ? 'Sign in' : 'Sign up'}
+      </button>
     </form>
   );
 }
