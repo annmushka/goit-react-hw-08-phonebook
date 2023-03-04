@@ -24,7 +24,7 @@ export const Layout = () => {
               <NavLink to="/contacts" className={css.link}>
                 Contacts
               </NavLink>
-              <span> Hello, {user?.name}</span>
+              <span> {user?.name}</span>
               <button type="button" onClick={handleLogout}>
                 Log out
               </button>

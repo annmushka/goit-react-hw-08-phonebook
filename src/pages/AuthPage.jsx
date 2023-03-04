@@ -66,7 +66,7 @@ export function AuthPage({ isLogin }) {
       />
 
       <button type="submit" className={css.button}>
-        {!isLogin ? 'Sign in' : 'Sign up'}
+        {!isLogin ? 'Sign up' : 'Sign in'}
       </button>
     </form>
   );

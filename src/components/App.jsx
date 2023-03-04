@@ -17,12 +17,11 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-
           <Route path="/" element={<PublicRoute />}>
             <Route path="/register" element={<AuthPage isLogin={false} />} />
             <Route path="/login" element={<AuthPage isLogin={true} />} />
