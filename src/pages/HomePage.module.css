@@ -1,0 +1,17 @@
+.homeImg {
+    background-image: url('../image/pexels-eugenia-remark-15737949.jpg');
+    background-position: 100%;
+        background-size: cover;
+        height: 38vw;
+        margin: auto;
+        padding: 251px 0;
+        text-align: center;
+        width: 50vw;
+        color: #fefae0;
+        font-style: italic;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 50px;
+        text-shadow: 2px 2px 2px rgb(79, 71, 29);
+
+};

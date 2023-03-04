@@ -69,9 +69,9 @@ export const logoutUser = createAsyncThunk(
 
 export const fetchContactsOper = createAsyncThunk(
   'contacts/fetchAll',
-  async (contacts, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const result = await fetchContact(contacts);
+      const result = await fetchContact();
       return result;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
