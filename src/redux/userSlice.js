@@ -3,10 +3,9 @@ import { loginUser, logoutUser, refreshUser, registerUser } from './operation';
 
 const initialState = {
   email: '',
-  password: '',
   isLoading: false,
   error: null,
-  token: null,
+  token: '',
 };
 
 const userSlice = createSlice({
@@ -21,7 +20,6 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.token = action.payload.token;
         state.email = action.payload.user.email;
-        state.password = action.payload.user.password;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -39,15 +37,16 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
       })
       //---------------------- current-------------------------
-      .addCase(refreshUser.pending, state => {
+      .addCase(refreshUser.pending, (state, action) => {
         state.isLoading = true;
+        state.email = action.payload.user.email;
+        state.error = null;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.email = action.payload.email;
-        state.password = action.payload.password;
         state.error = null;
       })
       .addCase(refreshUser.rejected, (state, action) => {
@@ -57,7 +56,6 @@ const userSlice = createSlice({
       // ----- Logout -----
       .addCase(logoutUser.pending, state => {
         state.isLoading = true;
-        state.error = null;
       })
       .addCase(logoutUser.fulfilled, () => {
         return initialState;

@@ -1,27 +1,50 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, NavLink } from 'react-router-dom';
 import css from './Layout.module.css';
+import { logoutUser } from 'redux/operation';
 
 export const Layout = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const user = useSelector(state => state.user.user);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
   return (
     <div className={css.container}>
       <header className={css.header}>
         <h1 className={css.title}>PhoneBook</h1>
         <nav className={css.nav}>
-          <Link to="/contacts" className={css.link}>
-            Contacts
-          </Link>
-          <Link to="/register" className={css.link}>
-            Sign Up
-          </Link>
-          <Link to="/login" className={css.link}>
-            Login
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <NavLink to="/contacts" className={css.link}>
+                Contacts
+              </NavLink>
+              <span> Hello, {user?.name}</span>
+              <button type="button" onClick={handleLogout}>
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/register" className={css.link}>
+                Sign Up
+              </NavLink>
+              <NavLink to="/login" className={css.link}>
+                Login
+              </NavLink>
+            </>
+          )}
         </nav>
       </header>
 
       <main>
-        <Outlet />
+        <Suspense>
+          <Outlet />
+        </Suspense>
       </main>
       <footer className={css.footer}>
         <p className={css.text}>PhoneBook &copy; 2023</p>
