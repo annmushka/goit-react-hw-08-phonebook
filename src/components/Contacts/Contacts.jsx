@@ -24,12 +24,12 @@ export function Contacts() {
 
   return (
     <ul>
-      {filterContacts.map(({ name, id, tel }) => {
+      {filterContacts.map(({ name, id, number }) => {
         return (
           <Item key={id}>
             <Span />
             <Title>
-              {name}: {tel}
+              {name}: {number}
             </Title>
             <Button type="button" onClick={() => onDelete(id)}>
               Delete

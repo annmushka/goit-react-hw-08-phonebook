@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { FormEl, Label, Title, Input, Button } from './ContactForm.Styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContactsOper } from 'redux/operation';
-import { nanoid } from '@reduxjs/toolkit';
+// import { nanoid } from '@reduxjs/toolkit';
 import { selectContactsItem } from 'redux/selectors';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContactsItem);
   const [name, setName] = useState('');
-  const [tel, setTel] = useState('');
+  // const [tel, setTel] = useState('');
+  const [number, setNumber] = useState('');
 
   const onNameChange = event => {
     setName(event.target.value);
   };
 
   const onTelChange = event => {
-    setTel(event.target.value);
+    setNumber(event.target.value);
   };
 
   const onAddClick = event => {
@@ -24,8 +25,7 @@ export const ContactForm = () => {
 
     const contact = {
       name,
-      id: nanoid(),
-      tel,
+      number,
     };
 
     if (contacts.some(el => el.name === contact.name)) {
@@ -39,7 +39,7 @@ export const ContactForm = () => {
 
   const reset = () => {
     setName('');
-    setTel('');
+    setNumber('');
   };
 
   return (
@@ -62,7 +62,7 @@ export const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={tel}
+          value={number}
           onChange={onTelChange}
         />
       </Label>

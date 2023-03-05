@@ -28,8 +28,8 @@ export const loginUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await login(data);
-      token.set(response.data.token, 'Bearer');
-      return response.data;
+      token.set(response.token, 'Bearer');
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
