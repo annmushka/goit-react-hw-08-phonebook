@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, NavLink } from 'react-router-dom';
 import css from './Layout.module.css';
 import { logoutUser } from 'redux/operation';
-import { selectIsLoggedIn, selectUser } from 'redux/selectors';
+import { selectIsLoggedIn } from 'redux/selectors';
 
 export const Layout = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const user = useSelector(selectUser);
-  // const userEmail = useSelector(state => state.user.email);
+  const userEmail = useSelector(state => state.user.email);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -25,7 +24,7 @@ export const Layout = () => {
               <NavLink to="/contacts" className={css.link}>
                 Contacts
               </NavLink>
-              <span> {user?.name}</span>
+              <span> {userEmail}</span>
               <button
                 type="button"
                 onClick={handleLogout}

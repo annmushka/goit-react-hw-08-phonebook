@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { loginUser, registerUser } from 'redux/operation';
 import css from './AuthPage.module.css';
 
-export function AuthPage({ isLogin }) {
+function AuthPage({ isLogin }) {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -71,3 +71,4 @@ export function AuthPage({ isLogin }) {
     </form>
   );
 }
+export default AuthPage;

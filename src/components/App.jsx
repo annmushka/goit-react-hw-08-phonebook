@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout/Layout';
@@ -6,9 +6,10 @@ import { PrivateRoute } from 'components/PrivateRout/PrivateRoute';
 import { PublicRoute } from 'components/PublicRoute/PublicRoute';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/operation';
-import { AuthPage } from 'pages/AuthPage';
-import { ContactsPage } from 'pages/ContactsPage';
-import HomePage from 'pages/HomePage';
+
+const ContactsPage = lazy(() => import('pages/ContactsPage'));
+const AuthPage = lazy(() => import('pages/AuthPage'));
+const HomePage = lazy(() => import('pages/HomePage'));
 
 export const App = () => {
   const dispatch = useDispatch();
